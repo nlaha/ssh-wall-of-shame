@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wall of Shame</title>
+    <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <!-- css -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Montserrat&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+
+      /* Define styles for the default root window element */
+      :root {
+        --background-color-primary: #ffffff;
+        --background-color-secondary: #e0dddd;
+        --background-color-tertiary: #f6f6f6;
+        --background-color-tertiary2: #f7f7f7;
+        --accent-color: #981e32;
+        --text-primary-color: #293241;
+        --element-size: 4rem;
+        --shadow-color: rgba(0, 0, 0, 0.11);
+        background-color: var(--background-color-tertiary);
+      }
+
+      /* Define styles for the root window with dark - mode preference */
+      :root.dark-theme {
+        --background-color-primary: #131313;
+        --background-color-secondary: #811a2b;
+        --background-color-tertiary: #111111;
+        --background-color-tertiary2: #121212;
+        --accent-color: #981e32;
+        --text-primary-color: #ddd;
+        --shadow-color: rgba(0, 0, 0, 0.11);
+        background-color: var(--background-color-tertiary);
+      }
+
+      body {
+        background-color: var(--background-color-tertiary);
+        color: var(--text-primary-color);
+      }
+
+      h1 {
+        color: var(--text-primary-color);
+        font-family: "DM Serif Display", serif;
+        font-size: 3rem;
+        font-weight: 500;
+      }
+
+      h2 {
+        font-family: "DM Serif Text", serif;
+        font-size: 2rem;
+      }
+
+      li {
+        font-family: "Montserrat", sans-serif;
+        font-size: 1.5rem;
+        color: var(--text-primary-color);
+        margin-bottom: 2rem;
+      }
+
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .timestamp {
+        opacity: 0.5;
+      }
+
+      .ip {
+        font-weight: 900;
+        color: var(--accent-color);
+        float: right;
+      }
+
+      .message {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      p {
+        margin: auto;
+        font-size: 1.15em;
+        padding-bottom: 1rem;
+        color: var(--text-primary-color);
+        font-family: "Montserrat", sans-serif;
+        border-bottom: 5px solid var(--accent-color) !important;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-sm mt-5">
+      <h1 class="text-center">SSH Wall of Shame</h1>
+      <p>
+        Welcome to the SSH wall of shame. This page displays the last 20 IP
+        addresses that have attempted to log in to the server. If you see your
+        IP address here, it means you are either trying to brute force the
+        server or you have been compromised.
+      </p>
+
+      <div hx-get="/latest" hx-target="#entries" hx-trigger="every 1s"></div>
+      <div id="entries"></div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // check if dark mode is enabled
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        // add .dark-theme to the root element
+        document.documentElement.classList.add("dark-theme");
+      }
+    </script>
+  </body>
+</html>

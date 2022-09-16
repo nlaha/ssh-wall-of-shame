@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  wallofshame:
+    image: wallofshame
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 5350:8080
+    networks:
+      nginx-proxy_default:
+        ipv4_address: 172.18.0.47
+
+networks:
+  nginx-proxy_default:
+    external: true
