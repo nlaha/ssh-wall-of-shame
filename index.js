@@ -14,6 +14,19 @@ const port = process.env.PORT || 8080;
 
 var lines = [];
 
+// every night at 12:00 AM delete the log file
+var CronJob = require("cron").CronJob;
+new CronJob(
+  "0 0 0 * * *",
+  function () {
+    fs.unlinkSync(logPath);
+    lines = [];
+  },
+  null,
+  true,
+  "America/Los_Angeles"
+);
+
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "/index.html"));
 });
