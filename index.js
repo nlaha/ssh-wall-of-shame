@@ -67,7 +67,7 @@ app.get("/latest", function (req, res, next) {
       ip = ip.substring(12);
       var geo = geoip.lookup(ip);
 
-      html += `<li><span class="timestamp">${date_str}</span> <span class="ip"> ${ip}</span><span class="geo">(Country: ${geo.country})</span><br><span class="message">Bot was banished to endless torment in the SSH pit of shame.</span></li>`;
+      html += `<li><span class="timestamp">${date_str}</span> <span class="ip"> ${ip}</span><span class="geo">(Country: ${geo.country})</span><br><span class="message">Bot captured!</span></li>`;
     });
     html += "</ul>";
     res.send(html);
