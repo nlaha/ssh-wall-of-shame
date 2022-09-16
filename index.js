@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const readLastLines = require("read-last-lines");
+var geoip = require("geoip-country");
 
 // open the file /data/wallofshame.log for reading
 const fs = require("fs");
@@ -64,8 +65,9 @@ app.get("/latest", function (req, res, next) {
       var ip = parts[2];
       // remove first 12 characters
       ip = ip.substring(12);
+      var geo = geoip.lookup(ip);
 
-      html += `<li><span class="timestamp">${date_str}</span> <span class="ip">${ip}</span><br><span class="message">Bot was banished to endless torment in the SSH pit of shame.</span></li>`;
+      html += `<li><span class="timestamp">${date_str}</span> <span class="ip"> ${ip}</span><span class="geo">(Country: ${geo.country})</span><br><span class="message">Bot was banished to endless torment in the SSH pit of shame.</span></li>`;
     });
     html += "</ul>";
     res.send(html);
