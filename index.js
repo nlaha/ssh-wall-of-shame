@@ -22,6 +22,11 @@ new CronJob(
   function () {
     fs.unlinkSync(logPath);
     lines = [];
+
+    // create a new file
+    fs.openSync(logPath, "w");
+
+    console.log("Log file deleted");
   },
   null,
   true,
